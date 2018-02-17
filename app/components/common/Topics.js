@@ -1,7 +1,7 @@
 import React from "react";
 import { List, ListItem, Text } from "native-base";
 
-const Topics = ({ topics }) => (
+const Topics = ({ topics = [] }) => (
   <List>
     {topics.map(topic => (
       <ListItem key={topic.id}>
