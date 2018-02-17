@@ -1,5 +1,4 @@
-import React from "react";
-import { topics } from "./app/reducers/topics";
+import { topics } from "../topics";
 
 let tempState = {
   topics: {
@@ -26,10 +25,11 @@ describe("Test topics reducer", () => {
         title: "Title"
       }
     };
+
     expect(topics(tempState, action)).toEqual({
       topics: {
         a1: { id: "a1", author: "Alice", title: "Alice" },
-        b2: { id: "b2", name: "Bob", title: "Bob" },
+        b2: { id: "b2", author: "Bob", title: "Bob" },
         c3: { id: "c3", author: "Charlie", title: "Title" }
       }
     });
