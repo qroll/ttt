@@ -3,17 +3,17 @@ import { Platform, StyleSheet, Text, View } from "react-native";
 import { StackNavigator } from "react-navigation";
 import { Provider } from "react-redux";
 
-import configureStore from "../store";
+import configureStore from "./store";
 
-import TopTopics from "../containers/TopTopicsContainer";
-import Submit from "../containers/SubmitContainer";
+import Home from "./containers/HomeContainer";
+import Submit from "./containers/SubmitContainer";
 
 let store = configureStore();
 
 const RootStack = StackNavigator(
   {
     Home: {
-      screen: TopTopics
+      screen: Home
     },
     Submit: {
       screen: Submit

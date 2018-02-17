@@ -6,7 +6,7 @@ import TopTopics from "../components/TopTopics";
 import * as actions from "../actions/topics";
 
 const mapStateToProps = state => ({
-  topics: state.topics.topTopics
+  topics: state.topics.topTopics.map(topicId => state.topics.topics[topicId])
 });
 
 const mapDispatchToProps = dispatch => ({

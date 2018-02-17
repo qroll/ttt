@@ -1,8 +1,9 @@
-import { sortBy } from "lodash";
+import { orderBy } from "lodash";
 
 const initialState = {
   topics: {},
-  topTopics: []
+  topTopics: [],
+  allTopics: []
 };
 
 export const topic = (state = {}, action) => {
@@ -27,12 +28,27 @@ export const topic = (state = {}, action) => {
 export const topics = (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_TOPICS": {
-      let topTopics = sortBy(Object.values(state.topics), [
-        o => {
-          return o.upvotes;
-        }
-      ]).slice(0, 20);
-      return { ...state, topTopics };
+      let topTopics = orderBy(
+        Object.values(state.topics),
+        [
+          o => {
+            return o.upvotes;
+          }
+        ],
+        ["desc"]
+      )
+        .slice(0, 20)
+        .map(topic => topic.id);
+      let allTopics = orderBy(
+        Object.values(state.topics),
+        [
+          o => {
+            return o.timestamp;
+          }
+        ],
+        ["desc"]
+      ).map(topic => topic.id);
+      return { ...state, topTopics, allTopics };
     }
     case "SUBMIT_TOPIC": {
       let newTopic = topic(null, action);
@@ -40,12 +56,12 @@ export const topics = (state = initialState, action) => {
       return { ...state, topics };
     }
     case "UPVOTE_TOPIC": {
-      let updatedTopic = topic(state[action.topicId], action);
+      let updatedTopic = topic(state.topics[action.topicId], action);
       let topics = { ...state.topics, [updatedTopic.id]: updatedTopic };
       return { ...state, topics };
     }
     case "DOWNVOTE_TOPIC": {
-      let updatedTopic = topic(state[action.topicId], action);
+      let updatedTopic = topic(state.topics[action.topicId], action);
       let topics = { ...state.topics, [updatedTopic.id]: updatedTopic };
       return { ...state, topics };
     }

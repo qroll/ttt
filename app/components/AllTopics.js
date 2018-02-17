@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Topics from "./common/Topics";
 
-export default class TopTopics extends Component {
+export default class AllTopics extends Component {
   componentDidMount() {
     this.props.actions.fetchTopics();
   }
