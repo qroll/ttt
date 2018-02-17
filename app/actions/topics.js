@@ -2,15 +2,15 @@ import { uniqueId } from "lodash";
 import moment from "moment";
 
 export const fetchTopics = () => dispatch => {
-  dispatch({
+  return dispatch({
     type: "FETCH_TOPICS"
   });
 };
 
 export const submitTopic = topic => dispatch => {
-  Promise.resolve({
+  return Promise.resolve({
     id: uniqueId(),
-    time: moment.now(),
+    timestamp: moment.now(),
     upvotes: 0,
     downvotes: 0,
     ...topic
@@ -23,14 +23,14 @@ export const submitTopic = topic => dispatch => {
 };
 
 export const upvoteTopic = topicId => dispatch => {
-  dispatch({
+  return dispatch({
     type: "UPVOTE_TOPIC",
     topicId
   });
 };
 
 export const downvoteTopic = topicId => dispatch => {
-  dispatch({
+  return dispatch({
     type: "DOWNVOTE_TOPIC",
     topicId
   });
