@@ -8,6 +8,7 @@ import {
   Header,
   Icon,
   Input,
+  Item,
   Left,
   Right,
   Text,
@@ -37,16 +38,27 @@ const AppContent = ({ title, onChange, onSubmit }) => {
     (charsRemaining === 1 ? " character " : " characters ") +
     "remaining";
   return (
-    <Content>
-      <Input
-        placeholder="What's up?"
-        multiline
-        onChangeText={onChange}
-        value={title}
-        autoFocus={true}
-      />
-      <Text>{charsRemainingString}</Text>
-      <Button onPress={onSubmit} rounded style={{ alignSelf: "center" }}>
+    <Content style={{ padding: 16 }}>
+      <Item underline>
+        <Input
+          placeholder="What's up?"
+          multiline
+          onChangeText={onChange}
+          value={title}
+          autoFocus={true}
+        />
+      </Item>
+      <Text
+        style={{ padding: 16, color: charsRemaining <= 10 ? "#f55" : "#555" }}
+      >
+        {charsRemainingString}
+      </Text>
+      <Button
+        disabled={title.length === 0}
+        onPress={onSubmit}
+        rounded
+        style={{ alignSelf: "center" }}
+      >
         <Text>Submit</Text>
       </Button>
     </Content>
@@ -70,10 +82,14 @@ export default class Submit extends Component {
   };
 
   onSubmit = () => {
+    let { title } = this.state;
+    if (title.length === 0 || title.length > CHAR_LIMIT) {
+      return;
+    }
     Keyboard.dismiss();
     this.props.actions.submitTopic({
       author: this.props.user.username,
-      title: this.state.title
+      title
     });
     this.props.navigation.navigate("Home");
   };

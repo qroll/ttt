@@ -14,8 +14,7 @@ import {
   Tab,
   Tabs,
   Text,
-  Title,
-  TabHeading
+  Title
 } from "native-base";
 
 import User from "../containers/UserContainer";
